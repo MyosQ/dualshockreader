@@ -5,6 +5,7 @@
 #include <sys/ioctl.h>
 #include <time.h>
 #include <linux/joystick.h>
+#include <pthread.h>
 
 #define MIN_TIME_BETWEEN_CLICKS 0.2
 
@@ -31,3 +32,16 @@
 #define DS_AXES_R2		4
 #define DS_AXES_RIGHT_Y		5
 
+#define DS_AXES_ARROWS_LEFT	6
+#define DS_AXES_ARROWS_DOWN	7
+
+// 8,9,10 something with acceleration of the controller //
+
+#define DS_AXES_ROLL		11
+#define DS_AXES_YAW		12
+#define DS_AXES_PITCH		13
+
+#define DS_AXES_TRACKPAD_X	15
+#define DS_AXES_TRACKPAD_Y	16
+
+// 17: something with the trackpad //
