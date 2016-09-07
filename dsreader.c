@@ -1,11 +1,5 @@
 #include "dsreader.h"
 
-struct eventTypes{
-	int* buttons;
-	int* ax;
-};
-
-
 /* Open controller */
 int ds_open(){
 	int fd;
@@ -36,11 +30,11 @@ void* printEvents(void* arguments){
 	int* axes = args->ax;
 	int* buttonState = args->buttons;
 
-	clock_t start, lastEvent;
+	clock_t start, lastEvent = 0;
 	while(1){
 		start = clock();
 		if((((double)start - (double)lastEvent)/CLOCKS_PER_SEC) > MIN_TIME_BETWEEN_CLICKS){
-			printf("Buttonstate: %d  Axis 8: %d",*buttonState, axes[8]);
+			printf("Buttonstate: %d  Axis 0: %d",*buttonState, axes[0]);
 			printf("\n");
 			lastEvent = clock();
 		}
@@ -48,10 +42,9 @@ void* printEvents(void* arguments){
 }
 
 int main(){
-	int ds_fd, a, buttonState = 0, *axes;
+	int ds_fd, a, buttonState = 0, *axes, ret;
 	char numButtons = 0, numAxes = 0;
 	struct js_event ev;
-	clock_t start = -1, lastEvent;
 	pthread_t thread1;
 	struct eventTypes* argsThread1 = malloc(sizeof(struct eventTypes));
 
@@ -67,7 +60,7 @@ int main(){
 	/* Create thread for handling events */
 	argsThread1->buttons = &buttonState;
 	argsThread1->ax = axes;
-	int ret = pthread_create(&thread1, NULL, printEvents, (void*)argsThread1);
+	ret = pthread_create(&thread1, NULL, printEvents, (void*)argsThread1);
 	if(ret != 0){
 		fprintf(stderr,"thread_create error. Code: %d", ret);
 		exit(EXIT_FAILURE);

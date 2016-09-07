@@ -45,3 +45,8 @@
 #define DS_AXES_TRACKPAD_Y	16
 
 // 17: something with the trackpad //
+
+struct eventTypes{
+	int* buttons;
+	int* ax;
+};
