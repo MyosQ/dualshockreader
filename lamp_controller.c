@@ -3,6 +3,20 @@
 #include <fcntl.h>
 #include <time.h>
 #include <linux/joystick.h>
+#define TRY_OPEN_MAX_TIME 100
+#define TRY_OPEN_SLEEP_TIME 5
+#define MAX_LOOPS TRY_OPEN_MAX_TIME/TRY_OPEN_SLEEP_TIME
+
+int tryOpen(){
+   int fd, a;
+   for(a = 0; a < MAX_LOOPS; a++){
+      if((fd = open("/dev/input/js0", O_RDONLY)) > 0)
+         return fd;
+      sleep(TRY_OPEN_SLEEP_TIME);
+   }
+
+   exit(EXIT_FAILURE);
+}
 
 int main(){
 	int fd, buttonState = 0, prevButtonState = 0;
@@ -14,7 +28,13 @@ int main(){
 	}
 
 	while(1){
-		read(fd, &ev, sizeof(ev));
+		//read(fd, &ev, sizeof(ev));
+      if(read(fd, &ev, sizeof(ev)) < 0){
+
+         if(errno == EBADF)/*File doesnt exist */
+            fd = tryOpen();
+      }
+
 		if((ev.type & ~JS_EVENT_INIT) == JS_EVENT_BUTTON){
 			if(ev.value)
 				buttonState |= (1 << ev.number);

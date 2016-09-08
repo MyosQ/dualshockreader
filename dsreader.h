@@ -44,7 +44,7 @@
 #define DS_AXES_TRACKPAD_X	15
 #define DS_AXES_TRACKPAD_Y	16
 
-// 17: something with the trackpad //
+//--- 17: something with the trackpad, different values when tapped and released ---//
 
 struct eventTypes{
 	int* buttons;
