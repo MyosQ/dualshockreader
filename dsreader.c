@@ -42,7 +42,7 @@ void* printEvents(void* arguments){
 }
 
 int main(){
-	int ds_fd, a, buttonState = 0, *axes, ret;
+	int ds_fd, buttonState = 0, *axes, ret;
 	char numButtons = 0, numAxes = 0;
 	struct js_event ev;
 	pthread_t thread1;

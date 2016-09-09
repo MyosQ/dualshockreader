@@ -6,6 +6,8 @@
 #include <time.h>
 #include <linux/joystick.h>
 #include <pthread.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 #define MIN_TIME_BETWEEN_CLICKS 0.2
 
