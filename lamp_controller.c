@@ -1,6 +1,6 @@
 #include "dsreader.h"
 
-#define TRY_OPEN_MAX_TIME 100
+#define TRY_OPEN_MAX_TIME 86400 /* 24 hours */
 #define TRY_OPEN_SLEEP_TIME 5
 #define TRY_OPEN_MAX_LOOPS TRY_OPEN_MAX_TIME/TRY_OPEN_SLEEP_TIME
 #define DEVICE_PATH "/dev/input/js0"
